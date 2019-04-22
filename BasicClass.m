@@ -11,8 +11,9 @@ classdef BasicClass
         function obj = BasicClass(x,y)
             obj.Input = x;
             s = size(x);
-            obj.Weights1 = rand(s(2), 4);
-            obj.Weights2 = rand(4, 1);
+            n = 5;
+            obj.Weights1 = rand(s(2), 5);
+            obj.Weights2 = rand(5, 1);
             obj.Y = y;
             obj.Output = zeros(size(y));
             obj.Layer1 = zeros(10,10);
