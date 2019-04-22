@@ -1,3 +1,11 @@
+M = readmatrix('iris.csv');
+irisX = M(:,(2:5));
+irisY = M(:,6);
+
+%% Sin 'dataset'
+sinX = rand(1000,1);
+sinY = sin(Y);
+
 X = [ 0 0 1; 0 1 1; 1 0 1; 1 1 1];
 Y = [ 0; 1; 1; 0];
 
@@ -13,3 +21,5 @@ end
 plot(1:1000,error)
 
 nn.Output
+
+nn.Predict(testX)
