@@ -1,33 +1,34 @@
 #include "NeuralNet.h"
+#define RAND_MAX 1
 
 NeuralNet::NeuralNet(double x[ROWS][IN_COLS], double y2[ROWS][OUT_COLS])
 {
-  srand((unsigned)time(0)); 
+  srand((unsigned)time(0));
 
-  for(int i=0; i < ROWS; i++) 
+  for(int i=0; i < ROWS; i++)
     for(int j = 0; j < IN_COLS; j++)
       this->input[i][j] = x[i][j];
 
-  for(int i=0; i < IN_COLS; i++) 
-    for(int j = 0; j < NODES; j++)
-      this->weights1[i][j] = (rand()%1000000)/1000000.0; 
+  for(int i=0; i < ROWS; i++)
+    for(int j = 0; j < IN_COLS; j++)
+      this->weights1[i][j] = ((double) rand() / (RAND_MAX));
 
-  for(int i=0; i < NODES; i++) 
-    for(int j = 0; j < OUT_COLS; j++)
-      this->weights2[i][j] = (rand()%1000000)/1000000.0;
+  for(int i=0; i < ROWS; i++)
+    for(int j = 0; j < IN_COLS; j++)
+      this->weights2[i][j] = ((double) rand() / (RAND_MAX));
 
-  for(int i=0; i < ROWS; i++) 
-    for(int j = 0; j < OUT_COLS; j++)
-      this->y[i][j] = y2[i][j];
+  for(int i=0; i < ROWS; i++)
+    for(int j = 0; j < IN_COLS; j++)
+      this->y[i][j] = y[i][j];
 
-  for(int i=0; i < ROWS; i++) 
+  for(int i=0; i < ROWS; i++)
     for(int j = 0; j < OUT_COLS; j++)
       this->output[i][j] = 0.0;
-  
-  for(int i=0; i < IN_COLS; i++) 
+
+  for(int i=0; i < IN_COLS; i++)
     for(int j = 0; j < NODES; j++)
       this->layer1[i][j] = 0.0;
-  
+
 }
 
 void NeuralNet::feedForward()
@@ -74,7 +75,7 @@ void NeuralNet::backProp()
     }
   }
 
-  
+
   double tempArr[ROWS][NODES];
   for(int i = 0; i < ROWS; i++)
   {
@@ -149,4 +150,3 @@ double NeuralNet::DSig(double x)
 {
   return x * (1.0 - x);
 }
-
