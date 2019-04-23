@@ -25,6 +25,7 @@ class NeuralNet
     NeuralNet(double x[ROWS][IN_COLS], double y[ROWS][OUT_COLS]);
     void feedForward();
     void backProp();
+    void predict(double x[IN_COLS]);
     double Sig(double x);
     double DSig(double x);
 
