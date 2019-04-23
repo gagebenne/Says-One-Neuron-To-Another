@@ -1,6 +1,6 @@
 #include "NeuralNet.h"
 
-NeuralNet::NeuralNet(double x[ROWS][IN_COLS], double y[ROWS][OUT_COLS])
+NeuralNet::NeuralNet(double x[ROWS][IN_COLS], double y2[ROWS][OUT_COLS])
 {
   srand((unsigned)time(0)); 
 
@@ -8,21 +8,25 @@ NeuralNet::NeuralNet(double x[ROWS][IN_COLS], double y[ROWS][OUT_COLS])
     for(int j = 0; j < IN_COLS; j++)
       this->input[i][j] = x[i][j];
 
-  for(int i=0; i < ROWS; i++) 
-    for(int j = 0; j < IN_COLS; j++)
-      this->weights1[i][j] = (rand()%100000)/100000.0; 
+  for(int i=0; i < IN_COLS; i++) 
+    for(int j = 0; j < NODES; j++)
+      this->weights1[i][j] = (rand()%1000000)/1000000.0; 
+
+  for(int i=0; i < NODES; i++) 
+    for(int j = 0; j < OUT_COLS; j++)
+      this->weights2[i][j] = (rand()%1000000)/1000000.0;
 
   for(int i=0; i < ROWS; i++) 
-    for(int j = 0; j < IN_COLS; j++)
-      this->weights2[i][j] = (rand()%100000)/100000.0;
-
-  for(int i=0; i < ROWS; i++) 
-    for(int j = 0; j < IN_COLS; j++)
-      this->y[i][j] = y[i][j];
+    for(int j = 0; j < OUT_COLS; j++)
+      this->y[i][j] = y2[i][j];
 
   for(int i=0; i < ROWS; i++) 
     for(int j = 0; j < OUT_COLS; j++)
       this->output[i][j] = 0.0;
+  
+  for(int i=0; i < IN_COLS; i++) 
+    for(int j = 0; j < NODES; j++)
+      this->layer1[i][j] = 0.0;
   
 }
 
@@ -37,8 +41,6 @@ void NeuralNet::feedForward()
       {
         temp += input[i][k] * weights1[k][j];
       }
-      //std::cout << "temp: " << temp << std::endl;
-      std::cout << "Sig(temp): " << Sig(temp) << std::endl;
       this->layer1[i][j] = Sig(temp);
     }
   }
@@ -83,7 +85,7 @@ void NeuralNet::backProp()
       {
         temp += (2.0 * (y[i][k]-output[i][k]) * DSig(output[i][k])) * weights2[j][k];
       }
-      tempArr[i][j] = temp;
+      tempArr[i][j] = temp * DSig(layer1[i][j]);
     }
   }
 
@@ -96,8 +98,45 @@ void NeuralNet::backProp()
       {
         temp += input[k][i] * tempArr[k][j];
       }
-      this->weights1[i][j] += temp * DSig(layer1[i][j]);
+      this->weights1[i][j] += temp;
     }
+  }
+}
+
+void NeuralNet::predict(double x[IN_COLS])
+{
+  double nodes[NODES];
+  for(int j = 0; j < NODES; j++)
+  {
+    double temp = 0.0;
+    for(int k = 0; k < IN_COLS; k++)
+    {
+      temp += x[k] * weights1[k][j];
+    }
+    nodes[j] = Sig(temp);
+  }
+
+  double out[OUT_COLS];
+  for(int j = 0; j < OUT_COLS; j++)
+  {
+    double temp = 0.0;
+    for(int k = 0; k < NODES; k++)
+    {
+      temp += nodes[k] * weights2[k][j];
+    }
+    out[j] = Sig(temp);
+  }
+
+  std::cout << "== Prediction == " << std::endl;
+  std::cout << "Input: " << std::endl;
+  for(int j = 0; j < IN_COLS; j++)
+  {
+    std::cout << "input["<<j<<"]: " << x[j] << std::endl;
+  }
+  std::cout << "Output: " << std::endl;
+  for(int j = 0; j < OUT_COLS; j++)
+  {
+    std::cout << "output["<<j<<"]: " << out[j] << std::endl;
   }
 }
 
