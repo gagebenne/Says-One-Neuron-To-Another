@@ -5,6 +5,7 @@
 #define IN_COLS 3
 #define OUT_COLS 1
 #define NODES 4
+#define ITERATIONS 1500
 
 
 #include <iostream>
@@ -16,7 +17,7 @@ class NeuralNet
 {
   public:
     double input[ROWS][IN_COLS];
-    double layer1[IN_COLS][NODES];
+    double layer1[ROWS][NODES];
     double weights1[IN_COLS][NODES];
     double weights2[NODES][OUT_COLS];
     double y[ROWS][OUT_COLS];

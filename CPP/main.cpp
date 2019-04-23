@@ -12,10 +12,9 @@ int main() {
               {0.0} };
 
   NeuralNet nn(x,y);
-  const int loops = 15000;
-  double error[loops];
+  double error[ITERATIONS];
 
-  for (int i = 0; i < loops; i++)
+  for (int i = 0; i < ITERATIONS; i++)
   {
     nn.feedForward();
     nn.backProp();
@@ -24,28 +23,8 @@ int main() {
     {
       error[i] += (nn.y[j][0] - nn.output[j][0]) * (nn.y[j][0] - nn.output[j][0]);
     }
-    std::cout << "Error: " << error[i] << std::endl;
   }
 
-  std::cout << "Weights1: " << std::endl;
-  for(int i = 0; i < IN_COLS; i++)
-  {
-    std::cout << "weights1["<<i<<"]: ";
-    for(int j = 0; j < NODES; j++)
-    {
-      std::cout << nn.weights1[i][j] << "\t";
-    }
-    std::cout << std::endl;
-  }
-  std::cout << "Weights2: " << std::endl;
-  for(int i = 0; i < NODES; i++)
-  {
-    for(int j = 0; j < OUT_COLS; j++)
-    {
-      std::cout << "weights2["<<i<<"]["<<j<<"]: " << nn.weights2[i][j] << std::endl;
-    }
-  }
-  std::cout << "Output: " << std::endl;
   for(int i = 0; i < ROWS; i++)
   {
     for(int j = 0; j < OUT_COLS; j++)
