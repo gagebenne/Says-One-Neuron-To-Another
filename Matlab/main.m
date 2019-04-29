@@ -1,4 +1,4 @@
-M = readmatrix('iris.csv');
+M = readmatrix('../iris.csv');
 irisX = M(:,(2:5));
 irisY = M(:,6);
 
