@@ -42,11 +42,6 @@ class NeuralNetwork:
         print("=== backprop complete ===")
 
 if __name__ == "__main__":
-    my_data = genfromtxt('iris.csv', delimiter=',')
-    X = my_data[:,1:5].T
-    Y = my_data[:,5].reshape(-1, 1)
-    # X = np.random.randn(3, 100)
-    # Y = np.random.randn(1, 100)
     nn = NeuralNetwork(X, Y, 4)
 
     for i in range(1500):
