@@ -1,5 +1,8 @@
 # Says One Neuron To Another
-*Gage Benne and Andrew Monroe*
+*EECS738*
+
+## Authors
+[Gage Benne](https://www.gagebenne.com) and [Andy Monroe](https://www.andymonroe.dev)
 
 # Introduction
 After researching various Neural Network implementations, we opted to begin our endeavor into machine learning with neural networks with a simple two layer neural network.  We first began by learning on a simple binary input, two weights, and a classical Sigmoid activation function.  Originally we both had experience in MatLab and wanted to implement a novel implementation there.  Unfortunately, we weren't getting quite the results we wanted, and tweaking our implementation meant training the neural network...  Which we quickly discovered MatLab wasn't anywhere as fast as other languages we were used to, and by a long shot.  With that in mind we transitioned to experimenting in C++, just about as close to assembly code as one can get in terms of speed, and just about as *far* away from MatLab as one can get as well.
